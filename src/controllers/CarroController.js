@@ -27,5 +27,26 @@ module.exports = {
     }
 
     res.json(json);
+  },
+
+  inserir: async (req, res) => {
+    let json = {error: '', results: {}}
+
+    let modelo = req.body.modelo;
+    let placa = req.body.placa;
+
+    if(modelo && placa){
+      let CarroCodigo = await CarroService.inserir(modelo, placa);
+      json.results = {
+        codigo: CarroCodigo,
+        modelo,
+        placa
+      }
+    } else {
+      json.error = 'Todos os campos são obrigatôrios'
+    }
+
+    res.json(json);
+
   }
 }
