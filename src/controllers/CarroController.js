@@ -48,5 +48,29 @@ module.exports = {
 
     res.json(json);
 
+  },
+
+  alterar: async (req, res) => {
+    let json = {error: '', results: {}};
+
+    let codigo = req.params.codigo;
+    let modelo = req.body.modelo;
+    let placa = req.body.placa;
+
+    if (codigo && modelo && placa) {
+      console.log('hola')
+      await CarroService.alterar(codigo, modelo, placa);
+
+      json.results = {
+        codigo,
+        modelo,
+        placa
+      };
+    } else {
+        console.log(codigo, modelo, placa)
+        json.error = 'Todos os campos são obrigatôrios';
+    }
+
+    res.json(json)
   }
 }
