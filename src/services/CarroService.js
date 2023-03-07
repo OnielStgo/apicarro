@@ -27,7 +27,7 @@ module.exports = {
     return new Promise((aceito, rejeitado) => {
       db.query('INSERT INTO carros (modelo, placa) VALUES (?,?)', [modelo, placa], (error, results) => {
         if(error){rejeitado(error); return;}
-        aceito(results.insertCodigo);
+            aceito(results.insertCodigo);
       })
     })
   },
@@ -38,6 +38,15 @@ module.exports = {
       (error, results) => {
         if(error) {rejeitado(error); return;}
         aceito(results)
+      })
+    })
+  },
+
+  deletar: (codigo) => {
+    return new Promise((aceito, rejeitado) => {
+      db.query('DELETE FROM carros WHERE codigo = ?', [codigo], (error, results) => {
+        if(error) {rejeitado(error); return;}
+        aceito(results);
       })
     })
   }

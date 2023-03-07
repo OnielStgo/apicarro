@@ -1,6 +1,7 @@
 const CarroService = require('../services/CarroService');
 
 module.exports = {
+
   buscarTodos: async (req, res) => {
     let json = {error: '', results: []}
 
@@ -58,7 +59,6 @@ module.exports = {
     let placa = req.body.placa;
 
     if (codigo && modelo && placa) {
-      console.log('hola')
       await CarroService.alterar(codigo, modelo, placa);
 
       json.results = {
@@ -72,5 +72,18 @@ module.exports = {
     }
 
     res.json(json)
+  },
+
+  deletar: async (req, res) => {
+    let json = {error: '', results: {}}
+
+    let codigo = req.params.codigo;
+
+    await CarroService.deletar(codigo);
+    
+    res.json(json);
+    
   }
+  
+
 }
